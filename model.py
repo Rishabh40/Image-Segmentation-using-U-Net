@@ -38,6 +38,8 @@ def build_unet(shape, num_classes):
     u4 = UpSampling2D((2, 2), interpolation="bilinear")(x7)
     c4 = Concatenate()([u4, x1])
     x8 = conv_block(c4, 16, pool=False)
+    
+    # Output Softmax Layer
     output = Conv2D(num_classes, 1, padding="same", activation="softmax")(x8)
 
     return Model(inputs, output)
